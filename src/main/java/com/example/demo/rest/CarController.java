@@ -117,5 +117,12 @@ public class CarController {
 
 		return ResponseEntity.noContent().build();
 	}
+	
+	@GetMapping("/cars/doors/{doors}")
+	public List<Car> findByDoors(@PathVariable Integer doors){
+		log.info("REST request to find cars by num doors");
+		
+		return this.carRepository.findByDoors(doors);
+	}
 
 }
