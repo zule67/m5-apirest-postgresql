@@ -24,7 +24,35 @@ public class CarServiceImpl implements CarService {
 
 	@Override
 	public Optional<Car> findOne(Long id) {
-		return null;
+		return this.findOne(id);
 	}
+
+	@Override
+	public Car save(Car car) {
+		return this.save(car);
+	}
+
+	@Override
+	public List<Car> findByDoors(Integer doors) {
+		return this.findByDoors(doors);
+	}
+
+	@Override
+	public Integer count() {
+		return this.count();
+	}
+
+	@Override
+	public void delete(Long id) {
+		this.delete(id);
+	}
+
+	@Override
+	public void deleteAll() {
+		this.deleteAll();
+		
+	}
+	
+	
 
 }
