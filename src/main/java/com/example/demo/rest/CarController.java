@@ -154,4 +154,13 @@ public class CarController {
 		
 		return ResponseEntity.noContent().build();
 	}
+	
+	@GetMapping("/cars/deletemany/{ids}")
+	public ResponseEntity<Car> deleteMany(@PathVariable List<Long> ids){
+		log.info("REST request to delete a list of cars");
+		
+		this.carService.deleteAllByIds(ids);
+		
+		return ResponseEntity.noContent().build();
+	}
 }

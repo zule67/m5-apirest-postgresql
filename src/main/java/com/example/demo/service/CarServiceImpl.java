@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.example.demo.domain.Car;
 import com.example.demo.repository.CarRepository;
@@ -113,6 +114,18 @@ public class CarServiceImpl implements CarService {
 		this.carRepository.deleteAll(cars);
 		
 	}
+
+	@Override
+	public void deleteAllByIds(List<Long> ids) {
+		log.info("Deleting car by id");
+		if (CollectionUtils.isEmpty(ids)) {
+			log.warn("Trying to delete an empty or null car list");
+			return;
+		}
+		this.carRepository.deleteAllById(ids);
+		
+	}
+
 	
 	
 

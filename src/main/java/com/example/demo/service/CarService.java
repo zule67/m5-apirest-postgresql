@@ -32,4 +32,6 @@ public interface CarService {
 	
 	void deleteAll(List<Car> cars);
 	
+	void deleteAllByIds(List<Long> ids);
+	
 }
