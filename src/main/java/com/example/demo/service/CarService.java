@@ -30,4 +30,6 @@ public interface CarService {
 	
 	void deleteAll();
 	
+	void deleteAll(List<Car> cars);
+	
 }

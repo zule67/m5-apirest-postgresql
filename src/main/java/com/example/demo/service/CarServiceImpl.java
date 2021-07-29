@@ -80,8 +80,10 @@ public class CarServiceImpl implements CarService {
 	public void deleteById(Long id) {
 		log.info("Deleting a car by Id");
 		
-		if(id == null || id < 0 || id == 0)
+		if(id == null || id < 0 || id == 0) {
+			log.warn("Trying to delete a car with a wrong id");
 			return;
+		}
 		
 		try {
 			this.carRepository.deleteById(id);
@@ -94,6 +96,21 @@ public class CarServiceImpl implements CarService {
 	public void deleteAll() {
 		log.info("Deleting all the cars in database");
 		this.carRepository.deleteAll();
+		
+	}
+
+	@Override
+	public void deleteAll(List<Car> cars) {
+		log.info("Deleting a specific list of cars");
+		
+		if(cars == null || cars.isEmpty()) {
+		log.warn("Trying to delete an empty or null list");
+		// opcion 2 (hace las dos comprobaciones en una)
+		// if(CollectionUtils.isempty(cars))
+		return;
+		}
+			
+		this.carRepository.deleteAll(cars);
 		
 	}
 	
