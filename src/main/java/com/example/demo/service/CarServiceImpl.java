@@ -1,8 +1,11 @@
 package com.example.demo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.Car;
@@ -10,6 +13,10 @@ import com.example.demo.repository.CarRepository;
 
 @Service
 public class CarServiceImpl implements CarService {
+	
+	private static final Integer MIN_DOORS = 3;
+
+	private final Logger log = LoggerFactory.getLogger(CarServiceImpl.class);
 	
 	private CarRepository carRepository;
 	
@@ -19,37 +26,74 @@ public class CarServiceImpl implements CarService {
 	
 	@Override
 	public List<Car> findAll() {
+		log.info("Showing all the car in the database");
 		return this.carRepository.findAll();
 	}
 
 	@Override
 	public Optional<Car> findOne(Long id) {
-		return this.findOne(id);
+		log.info("Showing a car by Id");
+		return this.carRepository.findById(id);
 	}
 
 	@Override
 	public Car save(Car car) {
-		return this.save(car);
+		log.info("Saving a car in the database");
+		
+		if(!this.validateCar(car))
+			return null;
+			
+		return this.carRepository.save(car);
+	}
+
+	private boolean validateCar(Car car) {
+		if (car == null) {
+			log.warn("Trying to save a null car");
+			return false; 
+		}
+		if(car.getDoors() == null || car.getDoors() < MIN_DOORS) {
+			log.warn("Trying to create a car with not allowed num of doors");
+			return false;
+		}
+		
+		return true;
 	}
 
 	@Override
 	public List<Car> findByDoors(Integer doors) {
-		return this.findByDoors(doors);
+		log.info("Looking for by num of doors");
+		if (doors < MIN_DOORS) {
+			log.warn("Trying to search less than allowed doors");
+			return new ArrayList<Car>();
+		}
+		
+		return this.carRepository.findByDoors(doors);
 	}
 
 	@Override
-	public Integer count() {
-		return this.count();
+	public Long count() {
+		log.info("Counting all the cars");
+		return this.carRepository.count() ;
 	}
 
 	@Override
-	public void delete(Long id) {
-		this.delete(id);
+	public void deleteById(Long id) {
+		log.info("Deleting a car by Id");
+		
+		if(id == null || id < 0 || id == 0)
+			return;
+		
+		try {
+			this.carRepository.deleteById(id);
+		} catch(Exception e) {
+			log.error("Error trying to delete a car by Id{}", id, e);
+		}
 	}
 
 	@Override
 	public void deleteAll() {
-		this.deleteAll();
+		log.info("Deleting all the cars in database");
+		this.carRepository.deleteAll();
 		
 	}
 	

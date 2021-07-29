@@ -22,11 +22,11 @@ public interface CarService {
 	
 	List<Car> findByDoors(Integer doors);
 	
-	Integer count();
+	Long count();
 	
 	Car save(Car car);
 	
-	void delete(Long id);
+	void deleteById(Long id);
 	
 	void deleteAll();
 	
