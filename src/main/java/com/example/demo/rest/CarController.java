@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.Car;
+import com.example.demo.dto.CarListDTO;
+import com.example.demo.dto.CountDTO;
 import com.example.demo.service.CarService;
 
 @RestController
@@ -132,12 +134,24 @@ public class CarController {
 	}
 	
 	@GetMapping("/cars/count")
-	public ResponseEntity<Long> count(){
+	public ResponseEntity<CountDTO> count(){
 		log.info("REST request to count all cars");
-		return ResponseEntity.ok(this.carService.count());
+		
+		Long count = this.carService.count();
+		CountDTO dto = new CountDTO(count);
+		dto.setMessage("Respuesta del método count");
+		return ResponseEntity.ok(dto);
+		
+		//opcion 2
+		//return ResponseEntity.ok(new CountDTO(this.carService.count()));
 	}
 	
-//	public ResponseEntity<Car> deletaMany(){
-//		
-//	}
+	@PostMapping("/cars/deletemany")
+	public ResponseEntity<Car> deleteMany(@RequestBody CarListDTO carListDTO){
+		log.info("REST request to delete a list of cars");
+		
+		this.carService.deleteAll(carListDTO.getCars());
+		
+		return ResponseEntity.noContent().build();
+	}
 }
