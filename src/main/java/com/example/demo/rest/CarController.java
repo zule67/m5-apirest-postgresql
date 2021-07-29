@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.Car;
-import com.example.demo.repository.CarRepository;
+import com.example.demo.service.CarService;
 
 @RestController
 @RequestMapping("/api")
@@ -24,10 +24,11 @@ public class CarController {
 
 	private final Logger log = LoggerFactory.getLogger(CarController.class);
 
-	private CarRepository carRepository;
+	//dependencia
+	private CarService carService;
 
-	public CarController(CarRepository carRepository) { // spring injecta la dependencia
-		this.carRepository = carRepository;
+	public CarController(CarService carService) { // spring injecta la dependencia
+		this.carService = carService;
 	}
 
 	/**
@@ -39,12 +40,18 @@ public class CarController {
 	public ResponseEntity<Car> findOne(@PathVariable Long id) {
 		log.info("REST request to find one car");
 
-		Optional<Car> carOpt = this.carRepository.findById(id);
-
+		Optional<Car> carOpt = this.carService.findOne(id);
+		
+		//opcion1
 		if (carOpt.isPresent())
 			return ResponseEntity.ok(carOpt.get());
-
+		
 		return ResponseEntity.notFound().build();
+		
+		//opcion2
+		//return carOpt.map(car -> ResponseEntity.ok(car)).orElseGet(
+		//() -> new ResponseEntity<>(HttpStatus.ACCEPTED));
+
 	}
 
 	/**
@@ -54,7 +61,7 @@ public class CarController {
 	public List<Car> findAll() {
 		log.info("REST request to find all cars");
 
-		return this.carRepository.findAll();
+		return this.carService.findAll();
 	}
 
 	/**
@@ -70,7 +77,7 @@ public class CarController {
 			return ResponseEntity.badRequest().build();
 		}
 
-		return ResponseEntity.ok(this.carRepository.save(car));
+		return ResponseEntity.ok(this.carService.save(car));
 
 	}
 
@@ -88,7 +95,7 @@ public class CarController {
 			return ResponseEntity.badRequest().build();
 		}
 
-		return ResponseEntity.ok(this.carRepository.save(car));
+		return ResponseEntity.ok(this.carService.save(car));
 	}
 
 	/**
@@ -99,7 +106,7 @@ public class CarController {
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		log.info("REST request to DELETE an existing car");
 
-		this.carRepository.deleteById(id);
+		this.carService.deleteById(id);
 
 		return ResponseEntity.noContent().build();
 
@@ -113,7 +120,7 @@ public class CarController {
 	public ResponseEntity<Void> deleteAll() {
 		log.info("REST request to DELETE all cars");
 
-		this.carRepository.deleteAll();
+		this.carService.deleteAll();
 
 		return ResponseEntity.noContent().build();
 	}
@@ -121,8 +128,16 @@ public class CarController {
 	@GetMapping("/cars/doors/{doors}")
 	public List<Car> findByDoors(@PathVariable Integer doors){
 		log.info("REST request to find cars by num doors");
-		
-		return this.carRepository.findByDoors(doors);
+		return this.carService.findByDoors(doors);
 	}
-
+	
+	@GetMapping("/cars/count")
+	public ResponseEntity<Long> count(){
+		log.info("REST request to count all cars");
+		return ResponseEntity.ok(this.carService.count());
+	}
+	
+//	public ResponseEntity<Car> deletaMany(){
+//		
+//	}
 }
