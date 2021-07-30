@@ -20,6 +20,9 @@ import com.example.demo.dto.CarListDTO;
 import com.example.demo.dto.CountDTO;
 import com.example.demo.service.CarService;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
 @RestController
 @RequestMapping("/api")
 public class CarController {
@@ -39,7 +42,8 @@ public class CarController {
 	 * @return a response entity with car
 	 */
 	@GetMapping("/cars/{id}")
-	public ResponseEntity<Car> findOne(@PathVariable Long id) {
+	@ApiOperation("Buscar coche por Id")
+	public ResponseEntity<Car> findOne(@ApiParam("Clave primaria car") @PathVariable Long id) {
 		log.info("REST request to find one car");
 
 		Optional<Car> carOpt = this.carService.findOne(id);

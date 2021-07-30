@@ -19,11 +19,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * http://localhost:8085/swagger-ui/ --> HTML
  * http://localhost:8085/v2/api-docs --> JSON
  */
-@Configuration
+@Configuration //anotación para todas las clases spring para configuración
 @EnableSwagger2
 public class SwaggerConfig {
 	
-	@Bean
+	@Bean 	// permite que spring invoque este método para obtener un objeto que inyectar donde lo necesite 
 	public Docket swaggerConfiguration() {
 		
 		return new Docket(DocumentationType.SWAGGER_2)
