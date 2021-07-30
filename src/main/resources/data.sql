@@ -1,3 +1,5 @@
-insert into cars (fabricante, model, cc, doors) VALUES ('Opel','Corsa', 1.5, 5)
-insert into cars (fabricante, model, cc, doors) VALUES ('Ford','Mondeo', 1.8, 3)
-insert into cars (fabricante, model, cc, doors) VALUES ('Toyota','Prius', 2.0, 3)
+insert into cars (fabricante, model, cc, doors, available, year, release_date) VALUES ('Opel','Corsa', 1.5, 5, true, 1999, '2020-12-30')
+insert into cars (fabricante, model, cc, doors, available, year, release_date) VALUES ('Ford','Mondeo', 1.8, 3, true, 2000, '2020-12-30')
+insert into cars (fabricante, model, cc, doors, available, year, release_date) VALUES ('Toyota','Prius', 2.0, 3, true, 2001, '2020-12-30')
+insert into app_user(username, email, password) VALUES ('carlos', 'carlos@yahoo.es', '$2a$10$GRTVg6UrH5cOu3qDohzZYOfolxBpcxpMU1izhfV12qwVGcrAXad0C')
+insert into app_user(username, email, password) VALUES ('carlos2', 'carlos2@yahoo.es', '$2a$10$d2Twzo2RvW5FgxHEJNdw1u2Fe3gOYaJPMzf3VfzWtwj357yKhdB1u')
