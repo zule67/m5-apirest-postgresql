@@ -39,7 +39,7 @@ public interface CarService {
 	
 	List<Car> findByManufacturerAndModel(String manufacturer, String model);
 	
-	List<Car> findByDoorGreaterThanEqual(Integer doors);
+	List<Car> findByDoorsGreaterThanEqual(Integer doors);
 	
 	List<Car> findByModelContaining(String model);
 	

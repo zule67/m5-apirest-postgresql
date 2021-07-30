@@ -137,12 +137,12 @@ public class CarServiceImpl implements CarService {
 		return this.carRepository.findByManufacturerAndModel(manufacturer, model);
 	}
 
-	@Override
-	public List<Car> findByDoorGreaterThanEqual(Integer doors) {
+	@Override		
+	public List<Car> findByDoorsGreaterThanEqual(Integer doors) {
 		if(doors == null || doors < 0)
 			return new ArrayList<>();
 			
-		return this.carRepository.findByDoorGreaterThanEqual(doors);
+		return this.carRepository.findByDoorsGreaterThanEqual(doors);
 	}
 
 	@Override

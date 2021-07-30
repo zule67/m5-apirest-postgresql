@@ -36,6 +36,8 @@ public class CarController {
 		this.carService = carService;
 	}
 
+	/* ========== SPRING METHODS ============ */
+	
 	/**
 	 * http://localhost:8080/api/cars/1
 	 * 
@@ -131,11 +133,6 @@ public class CarController {
 		return ResponseEntity.noContent().build();
 	}
 	
-	@GetMapping("/cars/doors/{doors}")
-	public List<Car> findByDoors(@PathVariable Integer doors){
-		log.info("REST request to find cars by num doors");
-		return this.carService.findByDoors(doors);
-	}
 	
 	@GetMapping("/cars/count")
 	public ResponseEntity<CountDTO> count(){
@@ -167,4 +164,24 @@ public class CarController {
 		
 		return ResponseEntity.noContent().build();
 	}
+	
+	/* ========== SPRING CUSTOM METHODS ============ */
+
+	@GetMapping("/cars/doors/{doors}")
+	public List<Car> findByDoors(@PathVariable Integer doors){
+		log.info("REST request to find cars by num doors");
+		return this.carService.findByDoors(doors);
+	}
+	
+	@GetMapping("/cars/manufacturer/{manufacturer}/model/{model}")
+	public List<Car> findByManufacturerAndModel(@PathVariable String manufacturer,
+			@PathVariable String model){
+		return this.carService.findByManufacturerAndModel(manufacturer, model);
+	}
+	
+	@GetMapping("/cars/doors-gte/{doors}")
+	public List<Car> findByDoorGreaterThanEqual(@PathVariable Integer doors){
+		return this.carService.findByDoorsGreaterThanEqual(doors);
+	}
+		
 }

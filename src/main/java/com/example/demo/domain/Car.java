@@ -34,15 +34,6 @@ public class Car {
 		super();
 	}
 
-	public Car(Long id, String manufacturer, String model, Double cc, Integer doors) {
-		super();
-		this.id = id;
-		this.manufacturer = manufacturer;
-		this.model = model;
-		this.cc = cc;
-		this.doors = doors;
-	}
-
 	public Long getId() {
 		return id;
 	}
