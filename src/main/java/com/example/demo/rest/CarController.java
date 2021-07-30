@@ -180,7 +180,7 @@ public class CarController {
 	}
 	
 	@GetMapping("/cars/doors-gte/{doors}")
-	public List<Car> findByDoorGreaterThanEqual(@PathVariable Integer doors){
+	public List<Car> findByDoorsGreaterThanEqual(@PathVariable Integer doors){
 		return this.carService.findByDoorsGreaterThanEqual(doors);
 	}
 		
